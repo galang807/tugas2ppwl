@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Mahasiswa extends Model
+{
+    protected $fillable = [
+        'nim',
+        'nama',
+        'email',
+        'prodi',
+        'semester',
+        'aktif',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'aktif' => 'boolean',
+        ];
+    }
+}
