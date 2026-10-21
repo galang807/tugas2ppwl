@@ -1,17 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Data Mahasiswa</title>
 </head>
 <body>
     <h1>Data Mahasiswa</h1>
 
     @if (session('success'))
-        <p style="color: green">
+        <x-alert type="success">
             {{ session('success') }}
-        </p>
+        </x-alert>
     @endif
 
     <a href="{{ route('admin.mahasiswa.create') }}">
@@ -28,6 +28,7 @@
                 <th>Email</th>
                 <th>Program Studi</th>
                 <th>Semester</th>
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -40,6 +41,15 @@
                     <td>{{ $mahasiswa->email }}</td>
                     <td>{{ $mahasiswa->prodi }}</td>
                     <td>{{ $mahasiswa->semester }}</td>
+                    <td>
+                        @if ($mahasiswa->status === 'aktif')
+                            <x-badge variant="success">Aktif</x-badge>
+                        @elseif ($mahasiswa->status === 'cuti')
+                            <x-badge variant="warning">Cuti</x-badge>
+                        @else
+                            <x-badge variant="danger">Nonaktif</x-badge>
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('admin.mahasiswa.show', $mahasiswa) }}">
                             Detail
@@ -64,10 +74,16 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6">Belum ada data mahasiswa.</td>
+                    <td colspan="7">
+                        <x-empty-state
+                            title="Belum Ada Mahasiswa"
+                            description="Silakan tambahkan data mahasiswa terlebih dahulu."
+                        />
+                    </td>
                 </tr>
             @endforelse
         </tbody>
     </table>
 </body>
 </html>
+

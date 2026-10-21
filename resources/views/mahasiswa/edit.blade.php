@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit Mahasiswa</title>
 </head>
 <body>
@@ -19,37 +21,52 @@
         @csrf
         @method('PUT')
 
-        <p>NIM<br>
+        <p>
+            NIM<br>
             <input type="text" name="nim"
                    value="{{ old('nim', $mahasiswa->nim) }}" required>
         </p>
 
-        <p>Nama<br>
+        <p>
+            Nama<br>
             <input type="text" name="nama"
                    value="{{ old('nama', $mahasiswa->nama) }}" required>
         </p>
 
-        <p>Email<br>
+        <p>
+            Email<br>
             <input type="email" name="email"
                    value="{{ old('email', $mahasiswa->email) }}" required>
         </p>
 
-        <p>Program Studi<br>
+        <p>
+            Program Studi<br>
             <input type="text" name="prodi"
                    value="{{ old('prodi', $mahasiswa->prodi) }}" required>
         </p>
 
-        <p>Semester<br>
+        <p>
+            Semester<br>
             <input type="number" name="semester" min="1" max="14"
                    value="{{ old('semester', $mahasiswa->semester) }}" required>
         </p>
 
         <p>
-            <label>
-                <input type="checkbox" name="aktif" value="1"
-                       @checked(old('aktif', $mahasiswa->aktif))>
-                Aktif
-            </label>
+            <label for="status">Status Mahasiswa</label><br>
+            <select name="status" id="status" required>
+                <option value="aktif"
+                    @selected(old('status', $mahasiswa->status) === 'aktif')>
+                    Aktif
+                </option>
+                <option value="cuti"
+                    @selected(old('status', $mahasiswa->status) === 'cuti')>
+                    Cuti
+                </option>
+                <option value="nonaktif"
+                    @selected(old('status', $mahasiswa->status) === 'nonaktif')>
+                    Nonaktif
+                </option>
+            </select>
         </p>
 
         <button type="submit">Update</button>
@@ -57,4 +74,3 @@
     </form>
 </body>
 </html>
-

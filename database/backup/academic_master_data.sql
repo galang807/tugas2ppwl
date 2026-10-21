@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Okt 2026 pada 19.10
+-- Waktu pembuatan: 21 Okt 2026 pada 08.29
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -111,15 +111,18 @@ CREATE TABLE `mahasiswas` (
   `semester` tinyint(3) UNSIGNED NOT NULL,
   `aktif` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` enum('aktif','cuti','nonaktif') NOT NULL DEFAULT 'aktif'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `mahasiswas`
 --
 
-INSERT INTO `mahasiswas` (`id`, `nim`, `nama`, `email`, `prodi`, `semester`, `aktif`, `created_at`, `updated_at`) VALUES
-(2, '0', 'hedi', 'blues.mantep@gmail.com', 'sistem informasi', 7, 1, '2026-10-10 09:41:57', '2026-10-10 09:54:27');
+INSERT INTO `mahasiswas` (`id`, `nim`, `nama`, `email`, `prodi`, `semester`, `aktif`, `created_at`, `updated_at`, `status`) VALUES
+(2, '003', 'hedi', 'blues.mantep@gmail.com', 'sistem informasi', 7, 1, '2026-10-10 09:41:57', '2026-10-17 22:39:34', 'aktif'),
+(4, '004', 'salwa', 'salwa@gmail.com', 'sistem informasi', 4, 0, '2026-10-20 23:08:04', '2026-10-20 23:08:04', 'cuti'),
+(5, '005', 'galang', 'galang@email.com', 'teknik informatika', 5, 1, '2026-10-20 23:16:44', '2026-10-20 23:16:44', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -143,7 +146,7 @@ CREATE TABLE `mata_kuliahs` (
 --
 
 INSERT INTO `mata_kuliahs` (`id`, `kode`, `nama`, `sks`, `semester`, `aktif`, `created_at`, `updated_at`) VALUES
-(2, '002', 'kalkulus', 6, 4, 1, '2026-10-10 09:48:44', '2026-10-10 09:51:09');
+(3, 'IF101', 'Pemrograman Web', 3, 4, 1, '2026-10-17 06:54:27', '2026-10-17 06:55:16');
 
 -- --------------------------------------------------------
 
@@ -166,7 +169,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
 (4, '2026_10_10_062324_create_mahasiswas_table', 1),
-(5, '2026_10_10_062333_create_mata_kuliahs_table', 1);
+(5, '2026_10_10_062333_create_mata_kuliahs_table', 1),
+(6, '2026_10_21_054505_add_status_to_mahasiswas_table', 2);
 
 -- --------------------------------------------------------
 
@@ -200,7 +204,11 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('d8PlmGXyr4DTkGlNFFzQ5PirXwJkb9RUs5lWD0x5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMk1IR1laVkVGclBxWEhKNThyUWh6eDV5QWJGa2RXRG9PZHl1SWJ4ciI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9tYXRhLWt1bGlhaC9jcmVhdGUiO3M6NToicm91dGUiO3M6MjQ6ImFkbWluLm1hdGEta3VsaWFoLmNyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1791651524);
+('4BM4sgCaaWglXvaAKtdnxffVGWIYHlppCCRjJN3I', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWUFySG5IbG9tT0dUTmtTTm5Qd2d2Rll2NmFrZk1nWjdGOE1UcWl4NSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9tYWhhc2lzd2EiO3M6NToicm91dGUiO3M6MjE6ImFkbWluLm1haGFzaXN3YS5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1792245581),
+('d1G2I2JYiM3XauVEhc2uw9Zws8oE0DwSFA4URQno', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoicEVOMzhPc1kxVFVYdkpIZXhyM1JQdk85dzBtTWVYNjRDdHZpSUlWWSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO3M6NToicm91dGUiO3M6MTU6ImFkbWluLmRhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1792304931),
+('Jjyvp4vQKZnsfj1OFMmHB4lcZZUwAHg73L2P3isy', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNzg5ZHdQTzYzUFVZY1dEbjc2WW9wMU9RdnBCOTE0eGpSQ0FJMXlpTyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO3M6NToicm91dGUiO3M6MTU6ImFkbWluLmRhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1792410866),
+('Mv0JHpmdgzruZzZhGOL2X87lcWsWYVHrGcWuFwg5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidkp0VUQxcWRQeVdJWjhrM0dHTUp0NDc1OFJzRTFzUmltNll5VVFTRCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO3M6NToicm91dGUiO3M6MTU6ImFkbWluLmRhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1792563662),
+('T72NzQJK7KPVXeOuPgzxIutFSyTwmKQuHKSYJseo', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOFdCMlNJNGtGNkluQXk2U3JVUmpla2xYbFEyUHZYa3dld2VrZnZNUCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9tYWhhc2lzd2EiO3M6NToicm91dGUiO3M6MjE6ImFkbWluLm1haGFzaXN3YS5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1792335310);
 
 -- --------------------------------------------------------
 
@@ -319,19 +327,19 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT untuk tabel `mahasiswas`
 --
 ALTER TABLE `mahasiswas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `mata_kuliahs`
 --
 ALTER TABLE `mata_kuliahs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
